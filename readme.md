@@ -1,1 +1,1 @@
-React timer app
+React todo app
