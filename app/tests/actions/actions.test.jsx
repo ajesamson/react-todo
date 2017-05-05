@@ -116,8 +116,9 @@ describe('Actions', () => {
           createdAt: 23453453
         });
       }).then(() => done())
-      .catch(done => {
-        console.log('error occured', done);
+      .catch(err => {
+        // console.log('error occured', err.message);
+        done(err);
       });
     });
 

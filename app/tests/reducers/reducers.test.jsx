@@ -87,27 +87,43 @@ describe('Reducers', () => {
     expect(res[0]).toEqual(todos[0]);
   });
 
-  describe('authReducer', () => {
-    it('should store uid on LOGIN', () => {
-      const action = {
-        type: 'LOGIN',
-        uid: 'abc123'
-      };
-      const res = reducers.authReducer(undefined, df(action));
+  it('should wipe todos on logout', () => {
+    var todos = [{
+      id: '111',
+      text: 'anything',
+      completed: false,
+      completedAt: undefined,
+      createdAt: 33000
+    }];
+    var action = {
+      type: 'LOGOUT'
+    };
+    var res = reducers.todosReducer(df([]), df(action));
 
-      expect(res).toEqual({uid: action.uid});
-    });
+    expect(res.length).toEqual(0);
+  });
+});
 
-    it('should wipe auth on LOGOUT', () => {
-      const authData = {
-        uid: '123abc'
-      };
-      const action = {
-        type: 'LOGOUT'
-      };
-      var res = reducers.authReducer(df(authData), df(action));
+describe('authReducer', () => {
+  it('should store uid on LOGIN', () => {
+    const action = {
+      type: 'LOGIN',
+      uid: 'abc123'
+    };
+    const res = reducers.authReducer(undefined, df(action));
 
-      expect(res).toEqual({});
-    });
+    expect(res).toEqual({uid: action.uid});
+  });
+
+  it('should wipe auth on LOGOUT', () => {
+    const authData = {
+      uid: '123abc'
+    };
+    const action = {
+      type: 'LOGOUT'
+    };
+    var res = reducers.authReducer(df(authData), df(action));
+
+    expect(res).toEqual({});
   });
 });
